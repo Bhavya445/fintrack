@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pathway
+pydantic
+requests
+streamlit

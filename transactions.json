@@ -1,0 +1,20 @@
+[
+    {
+        "description": "gg",
+        "amount": 30.0,
+        "type": "expense",
+        "date": "2025-03-30"
+    },
+    {
+        "description": "food",
+        "amount": 1000.0,
+        "date": "2025-03-29",
+        "type": "expense"
+    },
+    {
+        "description": "pw",
+        "amount": 4000.0,
+        "date": "2025-03-29",
+        "type": "income"
+    }
+]
