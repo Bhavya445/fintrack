@@ -1,14 +1,18 @@
 from fastapi import FastAPI, Request
-import pathway as pw
 import json
 from datetime import datetime
+from langchain_rag_agent import analyze_transactions  # Ensure this file is updated correctly
 
 app = FastAPI()
 
 # Load existing transactions
 def load_transactions():
-    with open('transactions.json', 'r') as f:
-        return json.load(f)
+    try:
+        with open('transactions.json', 'r') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        # Return an empty list if the file doesn't exist
+        return []
 
 # Save transactions
 def save_transactions(transactions):
@@ -28,3 +32,17 @@ async def add_transaction(request: Request):
     save_transactions(transactions)
     
     return {"message": "Transaction added successfully"}
+
+@app.post("/analyze_transactions/")
+async def analyze_transactions_endpoint():
+    transactions = load_transactions()
+    
+    # Ensure transactions are loaded correctly before analysis
+    if not transactions:
+        return {"error": "No transactions available for analysis"}
+    
+    try:
+        analysis = analyze_transactions(transactions)
+        return {"analysis": analysis}
+    except Exception as e:
+        return {"error": str(e)}
